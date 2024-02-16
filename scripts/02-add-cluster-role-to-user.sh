@@ -1,6 +1,6 @@
 #!/bin/bash
 # binding
-if [ $# -eq 0 ]
+if [ $# -ne 3 ]
 then
     echo "Please input arguments! "
     echo " role user rolebinding "
