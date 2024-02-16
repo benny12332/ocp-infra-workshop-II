@@ -3,7 +3,7 @@
 if [ $# -ne 3 ]
 then
     echo "Please input arguments! "
-    echo " role user rolebinding "
+    echo "./02-add-cluster-role-to-user.sh role user rolebinding_name "
     exit
 fi
 echo "role: $1";
