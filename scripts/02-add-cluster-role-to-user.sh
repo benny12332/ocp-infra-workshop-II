@@ -9,4 +9,4 @@ fi
 echo "role: $1";
 echo "user: $2";
 echo "rolebinding name: $3";
-oc admin policy add-cluster-role-to-user $1 $2 --rolebinding-name=$3
+oc adm policy add-cluster-role-to-user $1 $2 --rolebinding-name=$3
