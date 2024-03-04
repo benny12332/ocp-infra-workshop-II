@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $# -ne 3 ]
+if [ $# -ne 2 ]
 then
     echo "Please input arguments! "
     echo " 00-create-user.sh <user> <password> "
