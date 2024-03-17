@@ -1,0 +1,13 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: route-pod-autoscale
+  namespace: user1-01
+  labels: {}
+spec:
+  to:
+    kind: Service
+    name: svc-pod-autoscale
+  tls: null
+  port:
+    targetPort: 8080
