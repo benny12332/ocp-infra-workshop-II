@@ -4,6 +4,27 @@ metadata:
   name: pod-autoscale
   namespace: user1-01
 spec:
+  behavior:
+    scaleDown: 
+      policies: 
+      - type: Pods 
+        value: 1 
+        periodSeconds: 10 
+      - type: Percent
+        value: 10 
+        periodSeconds: 10
+      selectPolicy: Min 
+      stabilizationWindowSeconds: 30 
+    scaleUp: 
+      policies:
+      - type: Pods
+        value: 5 
+        periodSeconds: 10
+      - type: Percent
+        value: 12 
+        periodSeconds: 10
+      selectPolicy: Max
+      stabilizationWindowSeconds: 0
   scaleTargetRef:
     kind: Deployment
     name: pod-autoscale
