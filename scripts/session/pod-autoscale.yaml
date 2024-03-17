@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: user1-01
+  name: pod-autoscale
+  annotations: {}
+spec:
+  selector:
+    matchLabels:
+      app: pod-autoscale
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: pod-autoscale
+    spec:
+      containers:
+        - name: container
+          image: 'quay.io/benny12332/pod-autoscale-lab:rc0'
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+            requests:
+              cpu: 200m
+          env: []
+      imagePullSecrets: []
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  paused: false
