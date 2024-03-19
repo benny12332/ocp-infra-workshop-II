@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: daemonset-app
-          image: 'quay.io/benny12332/pod-autoscale-lab:rc0'
+          image: 'quay.io/benny12332/daemonset-lab:1.0'
           ports:
             - containerPort: 8080
               protocol: TCP
