@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: user1-daemonset
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: daemonset-example-app
+  namespace: user1-daemonset
+spec:
+  selector:
+    matchLabels:
+      app: daemonset-app
+  template:
+    metadata:
+      labels:
+        app: daemonset-app
+    spec:
+      containers:
+        - name: daemonset-app
+          image: 'quay.io/benny12332/pod-autoscale-lab:rc0'
+          ports:
+            - containerPort: 8080
+              protocol: TCP
