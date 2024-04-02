@@ -1,2 +1,4 @@
 USER=user1
-oc new-project user1-01
+for i inn {01 02 daemonset stress-app stress-vpa};do
+oc new-project $i-${USER}
+done
