@@ -4,13 +4,6 @@ metadata:
   name: nginx-index-1
 data:
   index.html: |
-    <html>
-    <head>
-            <title>APP version 1 </title>
-    </head>
-    <body>
-    <h1>APP version 1</h1>
-    </body>
-    </html>
+    APP version 1
 binaryData: {}
 immutable: false
