@@ -1,0 +1,56 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: canary-1
+  labels:
+    app: canary
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: canary-1
+  template:
+    metadata:
+      labels:
+        app: canary-1
+    spec:
+      containers:
+      - name: canary
+        image: quay.io/benny12332/canary:1.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: nginx-index-1
+          mountPath: /opt/app-root/src
+      volumes:
+        - name: nginx-index-1
+          configMap:
+            name: nginx-index-1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: canary-1
+spec:
+  selector:
+    app: canary-1
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 808
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: canary-1
+  namespace: user1-canary
+  labels: {}
+spec:
+  to:
+    kind: Service
+    name: canary-1
+  tls: null
+  port:
+    targetPort: 8080
