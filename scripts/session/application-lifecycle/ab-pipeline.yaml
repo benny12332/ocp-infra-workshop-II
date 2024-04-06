@@ -1,0 +1,58 @@
+apiVersion: v1
+kind: BuildConfig
+metadata:
+  annotations:
+    pipeline.alpha.openshift.io/uses: '[{"name": "bluegreen", "namespace": "", "kind":
+      "DeploymentConfig"}]'
+  creationTimestamp: null
+  labels:
+    app: ab-pipeline
+    name: ab-pipeline
+  name: ab-pipeline
+spec:
+  output: {}
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+    type: None
+  strategy:
+    jenkinsPipelineStrategy:
+      jenkinsfile: |-
+        #!groovy
+        try {
+            def appName = "bluegreen"
+
+            timeout(time: 20, unit: 'MINUTES') {
+                node {
+                    project = env.PROJECT_NAME
+
+                    stage("Set Route Backends") {
+                        def userInput = input(
+                                id: 'userInput', message: 'Let\'s Adjust Routes ?', parameters: [
+                                [$class: 'TextParameterDefinition', defaultValue: '100', description: 'Blue', name: 'blue'],
+                                [$class: 'TextParameterDefinition', defaultValue: '0', description: 'Green', name: 'green']
+                        ])
+                        echo("Blue: " + userInput['blue'])
+                        echo("Green: " + userInput['green'])
+
+                        sh "oc set -n ${project} route-backends ${appName} blue=" + userInput['blue'] + " green=" + userInput['green']
+                    }
+                }
+            }
+        } catch (err) {
+            echo "in catch block"
+            echo "Caught: ${err}"
+            currentBuild.result = 'FAILURE'
+            throw err
+        }
+    type: JenkinsPipeline
+  triggers:
+  - github:
+      secret: secret101
+    type: GitHub
+  - generic:
+      secret: secret101
+    type: Generic
+status:
+  lastVersion: 0
