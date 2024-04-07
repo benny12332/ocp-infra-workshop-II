@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ubi
+  labels:
+    app: ubi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ubi
+  template:
+    metadata:
+      labels:
+        app: ubi
+    spec:
+      containers:
+        - name: ubi
+          image: quay.io/benny12332/test:1.1
+          resources:
+            requests:
+              cpu: 100m
+              memory: 50Mi
+          command: ["/bin/sh"]
+          args:
+          - "-c"
+          - "while true; do sleep 30; done"
