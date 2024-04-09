@@ -6,4 +6,4 @@ then
     echo "./build-image.sh <tag> "
     exit
 fi
-podman build --tag nginx:1.1 .
+podman build --tag $1 .
