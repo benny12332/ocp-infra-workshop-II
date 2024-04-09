@@ -1,4 +1,4 @@
-FROM nginx:1.0
+FROM quay.io/benny12332/nginx:1.0
 
 
 RUN chgrp -R 0 /etc/nginx/ /var/cache/nginx /var/run /var/log/nginx  && \ 
