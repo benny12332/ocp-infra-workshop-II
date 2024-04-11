@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: stress
-        image: polinux/stress
+        image: quay.io/rhtw/stress:1.0
         resources:
           requests:
             memory: "100Mi"
